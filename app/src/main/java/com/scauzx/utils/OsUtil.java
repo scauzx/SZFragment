@@ -1,4 +1,4 @@
-package scauzx.com.myapplication;
+package com.scauzx.utils;
 
 import android.app.Activity;
 import android.graphics.Rect;
