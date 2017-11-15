@@ -22,8 +22,8 @@ public class BaseActivity <T extends IBasePresenter>extends AppCompatActivity im
 
     T mPresenter;
 
-    public WeakReference<BaseActivity> mCurrentActivity = new WeakReference<BaseActivity>(null);
-    public WeakReference<BaseActivity> mLastActivity = new WeakReference<BaseActivity>(null);
+    public WeakReference<BaseActivity> mCurrentActivity = new WeakReference<>(null);
+    public WeakReference<BaseActivity> mLastActivity = new WeakReference<>(null);
 
     /**
      * 存活着的activity数量
