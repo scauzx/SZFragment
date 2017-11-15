@@ -9,10 +9,10 @@ import scauzx.com.myapplication.BaseActivity;
  * @date 2017/11/15
  */
 
-public class DataSourcePersenter  extends BasePresenterImp<BaseActivity,IMode> {
+public class DataSourcePresenter  extends BasePresenterImp<BaseActivity,IMode> {
 
 
-    public DataSourcePersenter(@Nullable BaseActivity view) {
+    public DataSourcePresenter(@Nullable BaseActivity view) {
         super(view);
     }
 

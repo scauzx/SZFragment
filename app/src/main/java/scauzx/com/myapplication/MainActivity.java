@@ -3,11 +3,9 @@ package scauzx.com.myapplication;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,8 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.scauzx.presenter.DataSourcePersenter;
+import com.scauzx.presenter.DataSourcePresenter;
 import com.scauzx.utils.OsUtil;
 import com.scauzx.widget.PagerSlidingTabStrip;
 import static android.os.Build.*;
@@ -41,7 +38,7 @@ public class MainActivity extends BaseActivity  {
 
     private void setupView() {
         initToolBar();
-        mPresenter = new DataSourcePersenter(this);
+        mPresenter = new DataSourcePresenter(this);
         mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tablayout);
         mMyAdapter = new MyAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
