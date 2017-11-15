@@ -11,11 +11,11 @@ import android.view.LayoutInflater;
  * @date 2017/11/15
  */
 
-public class SecondFragment extends BaseFragment {
-    private String TAG = "SecondFragment";
+public class FourthFragment extends BaseFragment {
+    private String TAG = "FourthFragment";
 
-    public static SecondFragment getInstance() {
-        return new SecondFragment();
+    public static FourthFragment getInstance() {
+        return new FourthFragment();
     }
 
     @Override
@@ -26,12 +26,6 @@ public class SecondFragment extends BaseFragment {
     @Override
     protected void setupView(LayoutInflater inflater) {
         mRootView = inflater.inflate(R.layout.fragment_second,null);
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        Log.d(TAG,"SecondFragment setUserVisibleHint = " + isVisibleToUser);
     }
 
 }

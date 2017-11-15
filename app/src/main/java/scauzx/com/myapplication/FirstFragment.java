@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 
 public class FirstFragment extends BaseFragment {
 
+    private static final String TAG = "FirstFragment";
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private static String[] Title = {"First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth"};
@@ -32,6 +34,11 @@ public class FirstFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d(TAG,"FirstFragment setUserVisibleHint = " + isVisibleToUser);
+    }
 
     @Override
     protected void setupView(LayoutInflater inflater) {
@@ -49,6 +56,8 @@ public class FirstFragment extends BaseFragment {
             }
         }
     }
+
+
 
     class MyAdapter extends PagerAdapter {
 

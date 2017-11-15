@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolBar;
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-    private String Title[] = {"First","Second","Third","Fourth"};
+    private String[] Title = {"First", "Second", "Third", "Fourth"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupView();
     }
-
 
 
     private void setupView() {
@@ -66,9 +66,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class MyAdapter extends FragmentPagerAdapter{
 
-
+    class MyAdapter extends BaseCacheStatePagerAdapter {
 
         public MyAdapter(FragmentManager fm) {
             super(fm);
@@ -76,11 +75,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            if (position % 2 ==0) {
-                return FirstFragment.getInstance();
+            if (getFragmentAt(position) != null) {
+                return getFragmentAt(position);
             }
-
-            return SecondFragment.getInstance();
+            switch (position) {
+                case 0:
+                    return FirstFragment.getInstance();
+                case 1:
+                    return SecondFragment.getInstance();
+                case 2:
+                    return ThirdFragment.getInstance();
+                default:
+                    return FourthFragment.getInstance();
+            }
         }
 
         @Override
