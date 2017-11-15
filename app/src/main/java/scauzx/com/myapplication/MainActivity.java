@@ -1,11 +1,11 @@
 package scauzx.com.myapplication;
 
+import android.content.Context;
 import android.graphics.Color;
-import android.support.design.widget.TabLayout;
+import android.graphics.Typeface;
+import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,19 +13,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.scauzx.utils.OsUtil;
-
+import com.scauzx.widget.PagerSlidingTabStrip;
 import static android.os.Build.*;
 
 /**
  * @author scauzx
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     private Toolbar mToolBar;
     private ViewPager mViewPager;
-    private TabLayout mTabLayout;
+    private PagerSlidingTabStrip mTabLayout;
     private String[] Title = {"First", "Second", "Third", "Fourth"};
+    private MyAdapter mMyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupView() {
         initToolBar();
-        mTabLayout = (TabLayout) findViewById(R.id.tablayout);
-        for (int i = 0; i < Title.length; i++) {
-            mTabLayout.addTab(mTabLayout.newTab());
-        }
-        mTabLayout.setLayoutMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tablayout);
+        mMyAdapter = new MyAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+        mViewPager.setAdapter(mMyAdapter);
+        mTabLayout.setOnTabStateChangeListener(mMyAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-        for (int i = 0; i < Title.length; i++) {
-            if (mTabLayout.getTabAt(i) != null) {
-                mTabLayout.getTabAt(i).setText(Title[i]);
-            }
-        }
+
     }
 
     private void initToolBar() {
@@ -67,10 +63,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    class MyAdapter extends BaseCacheStatePagerAdapter {
+    class MyAdapter extends BaseCacheStatePagerAdapter implements PagerSlidingTabStrip.OnTabStateChangeListener,PagerSlidingTabStrip.ViewTabProvider{
 
         public MyAdapter(FragmentManager fm) {
             super(fm);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (Title == null || Title.length < position + 1) {
+                return "";
+            }
+            return Title[position];
         }
 
         @Override
@@ -93,6 +97,58 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return Title.length;
+        }
+
+
+        @Override
+        public void onTabStateChange(View view, int position, boolean isSelected) {
+            if (isFinishing() || view == null) {
+                return;
+            }
+            if (view instanceof  TextView) {
+                if (isSelected) {
+                    ((TextView)view).setTextColor(Color.parseColor("#FFCE46EC"));
+                    ((TextView)view).setTypeface(null, Typeface.BOLD);
+                } else {
+                    ((TextView)view).setTextColor(Color.parseColor("#999999"));
+                    ((TextView)view).setTypeface(null, Typeface.NORMAL);
+                }
+            } else {
+                TabViewHolder holder = (TabViewHolder) view.getTag();
+                if (isSelected) {
+                    holder.text.setTextColor(Color.parseColor("#FFCE46EC"));
+                    holder.text.setTypeface(null, Typeface.BOLD);
+                } else {
+                    holder.text.setTextColor(Color.parseColor("#999999"));
+                    holder.text.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        }
+
+        @Override
+        public View getPageView(int position) {
+
+            TabViewHolder tabViewHolder = TabViewHolder.newTab(MainActivity.this);
+            tabViewHolder.text.setText(getPageTitle(position));
+            tabViewHolder.icon.setImageResource(R.mipmap.auth_icon_twitter);
+            return tabViewHolder.tabView;
+        }
+
+
+    }
+    static class TabViewHolder {
+        View tabView;
+        TextView text;
+        ImageView icon;
+
+        static TabViewHolder newTab(Context context) {
+            TabViewHolder holder = new TabViewHolder();
+            View view = View.inflate(context, R.layout.fragment_tab_item, null);
+            holder.tabView = view;
+            holder.text =  view.findViewById(R.id.tab_item_tv);
+            holder.icon =  view.findViewById(R.id.tab_item_iv);
+            view.setTag(holder);
+            return holder;
         }
     }
 

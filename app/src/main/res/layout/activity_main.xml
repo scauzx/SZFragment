@@ -29,15 +29,42 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/auth_icon_twitter" />
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tablayout"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:tabGravity="center"
-                    app:tabMode="fixed"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+
                     >
-                </android.support.design.widget.TabLayout>
+                <com.scauzx.widget.PagerSlidingTabStrip
+                    android:id="@+id/tablayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:paddingBottom="2dp"
+                    android:textSize="16sp"
+                    android:fadingEdgeLength="20dp"
+                    android:requiresFadingEdge="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:clipToPadding="false"
+                    app:pstsShouldExpand="false"
+                    app:pstsDividerColor="@android:color/transparent"
+                    app:pstsFixedIndicatorWidth="21dp"
+                    app:pstsRoundIndicator="true"
+                    app:pstsTextAllCaps="false"
+                    app:pstsUnderlineColor="@android:color/transparent"
+                    app:pstsIndicatorColor="@android:color/white"
+                    app:pstsScrollOffset="120dp"
+                    app:pstsCustomIndicator="@drawable/ic_global_tab_triangle"
+                    app:pstsIndicatorHeight="0dp"
+                    app:pstsUnderlineHeight="0dp"
+                    app:pstsTabPaddingLeftRight="12.5dp"
+                    app:pstsIndicatorOffset="9.5dp"
+                    app:pstsIndicatorPaddingBottom="-5dp"
+                    />
+                </RelativeLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"
