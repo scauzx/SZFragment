@@ -1,11 +1,12 @@
 package com.scauzx.presenter;
 
 import android.support.annotation.Nullable;
-
 import scauzx.com.myapplication.BaseActivity;
 
 /**
- * Created by Administrator on 2017/11/15.
+ *
+ * @author scauzx
+ * @date 2017/11/15
  */
 
 public class DataSourcePersenter  extends BasePresenterImp<BaseActivity,IMode> {

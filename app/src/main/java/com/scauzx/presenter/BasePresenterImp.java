@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by Administrator on 2017/11/15.
+ *
+ * @author scauzx
+ * @date 2017/11/15
  */
 
 public abstract class BasePresenterImp <T extends  IBaseView, M extends IMode> implements IBasePresenter{
