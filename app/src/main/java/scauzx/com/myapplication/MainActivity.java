@@ -15,6 +15,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.scauzx.presenter.DataSourcePersenter;
 import com.scauzx.utils.OsUtil;
 import com.scauzx.widget.PagerSlidingTabStrip;
 import static android.os.Build.*;
@@ -22,7 +24,7 @@ import static android.os.Build.*;
 /**
  * @author scauzx
  */
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends BaseActivity  {
     private Toolbar mToolBar;
     private ViewPager mViewPager;
     private PagerSlidingTabStrip mTabLayout;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private void setupView() {
         initToolBar();
+        mPresenter = new DataSourcePersenter(this);
         mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tablayout);
         mMyAdapter = new MyAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.viewpager);

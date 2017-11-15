@@ -1,4 +1,4 @@
-package com.scauzx.widget;/*
+/*
  * Copyright (C) 2013 Andreas Stuetz <andreas.stuetz@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@ package com.scauzx.widget;/*
  * limitations under the License.
  */
 
-
+package com.scauzx.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;

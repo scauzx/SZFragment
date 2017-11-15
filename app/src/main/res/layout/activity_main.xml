@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_layout"
         android:layout_width="match_parent"
@@ -71,8 +73,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@mipmap/auth_icon_twitter" />
-
-
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
@@ -84,5 +84,13 @@
             android:layout_height="0dp"
             android:layout_weight="1"></android.support.v4.view.ViewPager>
     </android.support.design.widget.AppBarLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
 
+            />
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>
