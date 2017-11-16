@@ -2,6 +2,7 @@ package com.scauzx.presenter;
 
 import android.support.annotation.Nullable;
 import scauzx.com.myapplication.BaseActivity;
+import scauzx.com.myapplication.BaseFragment;
 
 /**
  *
@@ -9,10 +10,10 @@ import scauzx.com.myapplication.BaseActivity;
  * @date 2017/11/15
  */
 
-public class DataSourcePresenter  extends BasePresenterImp<BaseActivity,IMode> {
+public class DataSourcePresenter  extends BasePresenterImp<BaseFragment,IMode> {
 
 
-    public DataSourcePresenter(@Nullable BaseActivity view) {
+    public DataSourcePresenter(@Nullable BaseFragment view) {
         super(view);
     }
 

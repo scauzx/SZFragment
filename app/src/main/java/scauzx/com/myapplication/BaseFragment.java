@@ -1,6 +1,7 @@
 package scauzx.com.myapplication;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.scauzx.presenter.IBasePresenter;
+import com.scauzx.presenter.IBaseView;
 
 /**
  *
@@ -15,7 +17,7 @@ import com.scauzx.presenter.IBasePresenter;
  * @date 2017/11/15
  */
 
-public class BaseFragment <T extends IBasePresenter> extends Fragment {
+public class BaseFragment <T extends IBasePresenter> extends Fragment implements IBaseView {
 
     protected T mPresenter;
     protected View mRootView;
@@ -41,6 +43,8 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment {
         }
         return mRootView;
     }
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

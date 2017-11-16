@@ -1,5 +1,7 @@
 package com.scauzx.presenter;
 
+import android.os.Parcelable;
+
 /**
  *
  * @author scauzx

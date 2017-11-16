@@ -3,57 +3,62 @@ package scauzx.com.myapplication;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.scauzx.presenter.DataSourcePresenter;
-import com.scauzx.utils.OsUtil;
 import com.scauzx.widget.PagerSlidingTabStrip;
-import static android.os.Build.*;
 
 /**
- * @author scauzx
+ * Created by Administrator on 2017/11/16.
  */
-public class MainActivity extends BaseActivity  {
+
+public class FollowFragment extends BaseFragment {
+
     private Toolbar mToolBar;
     private ViewPager mViewPager;
     private PagerSlidingTabStrip mTabLayout;
     private String[] Title = {"First", "Second", "Third", "Fourth"};
     private MyAdapter mMyAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setupView();
+
+    public static FollowFragment getInstance() {
+        return new FollowFragment();
     }
 
 
-    private void setupView() {
-        initToolBar();
-       // mPresenter = new DataSourcePresenter(this);
-        mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.activity_main_tablayout);
-        mMyAdapter = new MyAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
+    @Override
+    protected void setupView(LayoutInflater inflater) {
+        super.setupView(inflater);
+        mRootView = inflater.inflate(R.layout.activity_main, null);
+        mPresenter = new DataSourcePresenter(this);
+        mTabLayout =  mRootView.findViewById(R.id.activity_main_tablayout);
+        mMyAdapter = new MyAdapter(getFragmentManager());
+        mViewPager = mRootView.findViewById(R.id.activity_main_viewpager);
         mViewPager.setAdapter(mMyAdapter);
         mTabLayout.setOnTabStateChangeListener(mMyAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        initToolBar();
 
     }
 
+
+
     private void initToolBar() {
-        mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolBar);
-        mToolBar.setPadding(0, OsUtil.getStatusBarHeight(this), 0, 0);
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
+        mToolBar = mRootView.findViewById(R.id.toolbar);
+        //setSupportActionBar(mToolBar);
+      //  mToolBar.setPadding(0, OsUtil.getStatusBarHeight(this), 0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -102,10 +107,10 @@ public class MainActivity extends BaseActivity  {
 
         @Override
         public void onTabStateChange(View view, int position, boolean isSelected) {
-            if (isFinishing() || view == null) {
+            if (!isAdded() || view == null) {
                 return;
             }
-            if (view instanceof  TextView) {
+            if (view instanceof TextView) {
                 if (isSelected) {
                     ((TextView)view).setTextColor(Color.parseColor("#FFCE46EC"));
                     ((TextView)view).setTypeface(null, Typeface.BOLD);
@@ -114,7 +119,7 @@ public class MainActivity extends BaseActivity  {
                     ((TextView)view).setTypeface(null, Typeface.NORMAL);
                 }
             } else {
-                TabViewHolder holder = (TabViewHolder) view.getTag();
+                MainActivity.TabViewHolder holder = (MainActivity.TabViewHolder) view.getTag();
                 if (isSelected) {
                     holder.text.setTextColor(Color.parseColor("#FFCE46EC"));
                     holder.text.setTypeface(null, Typeface.BOLD);
@@ -128,7 +133,7 @@ public class MainActivity extends BaseActivity  {
         @Override
         public View getPageView(int position) {
 
-            TabViewHolder tabViewHolder = TabViewHolder.newTab(MainActivity.this);
+            MainActivity.TabViewHolder tabViewHolder = MainActivity.TabViewHolder.newTab(getActivity());
             tabViewHolder.text.setText(getPageTitle(position));
             tabViewHolder.icon.setImageResource(R.mipmap.auth_icon_twitter);
             return tabViewHolder.tabView;
@@ -141,8 +146,8 @@ public class MainActivity extends BaseActivity  {
         TextView text;
         ImageView icon;
 
-        static TabViewHolder newTab(Context context) {
-            TabViewHolder holder = new TabViewHolder();
+        static MainActivity.TabViewHolder newTab(Context context) {
+            MainActivity.TabViewHolder holder = new MainActivity.TabViewHolder();
             View view = View.inflate(context, R.layout.fragment_tab_item, null);
             holder.tabView = view;
             holder.text =  view.findViewById(R.id.tab_item_tv);
@@ -151,6 +156,4 @@ public class MainActivity extends BaseActivity  {
             return holder;
         }
     }
-
 }
-
