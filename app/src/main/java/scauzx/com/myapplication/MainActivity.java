@@ -39,9 +39,9 @@ public class MainActivity extends BaseActivity  {
     private void setupView() {
         initToolBar();
         mPresenter = new DataSourcePresenter(this);
-        mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tablayout);
+        mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.activity_main_tablayout);
         mMyAdapter = new MyAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
         mViewPager.setAdapter(mMyAdapter);
         mTabLayout.setOnTabStateChangeListener(mMyAdapter);
         mTabLayout.setupWithViewPager(mViewPager);

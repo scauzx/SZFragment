@@ -6,10 +6,8 @@ import android.os.Looper;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import com.scauzx.presenter.IBasePresenter;
 import com.scauzx.presenter.IBaseView;
-
 import java.lang.ref.WeakReference;
 
 /**

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.scauzx.presenter.IBasePresenter;
 
 /**
  *
@@ -14,12 +15,15 @@ import android.view.ViewGroup;
  * @date 2017/11/15
  */
 
-public class BaseFragment extends Fragment {
+public class BaseFragment <T extends IBasePresenter> extends Fragment {
 
+    protected T mPresenter;
     protected View mRootView;
     private String TAG = "BaseFragment";
 
-    // 是否已经初始化
+    /**
+     *     是否已经初始化
+     */
     protected boolean mInitialized = false;
 
 
@@ -85,7 +89,21 @@ public class BaseFragment extends Fragment {
     protected void setupView(LayoutInflater inflater) {
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPresenter != null) {
+            mPresenter.onResume();
+        }
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
