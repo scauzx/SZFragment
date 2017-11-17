@@ -3,6 +3,7 @@ package com.scauzx.fragments;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.util.SparseArrayCompat;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
@@ -22,11 +23,11 @@ public abstract class BaseCacheStatePagerAdapter extends FragmentStatePagerAdapt
      * 是Long值时，使用SparseLongArray
      * 其他类型时使用ArrayMap
      */
-    private SparseArray<WeakReference<Fragment>> mFragmentList;
+    private SparseArrayCompat<WeakReference<Fragment>> mFragmentList;
 
     public BaseCacheStatePagerAdapter(FragmentManager fm) {
         super(fm);
-        mFragmentList = new SparseArray<>();
+        mFragmentList = new SparseArrayCompat<>();
     }
 
     @Override

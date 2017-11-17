@@ -1,19 +1,21 @@
 package scauzx.com.myapplication;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.SparseArrayCompat;
+import android.view.View;
 import android.widget.FrameLayout;
-
 import com.scauzx.fragments.FollowFragment;
 import com.scauzx.fragments.FourthFragment;
 import com.scauzx.fragments.SecondFragment;
 import com.scauzx.fragments.ThirdFragment;
+import com.scauzx.utils.FragmentUtils;
 import com.scauzx.utils.OsUtil;
-
 import java.lang.ref.WeakReference;
 
 /**
@@ -29,6 +31,10 @@ public class BottomTabLayoutActivity extends BaseActivity {
     public static final String[] mTabTitle = new String[]{"首页", "发现", "关注", "我的"};
     private int[] mStatusBarColors = {Color.TRANSPARENT, Color.CYAN, Color.TRANSPARENT, Color.BLACK, Color.BLUE};
     private SparseArrayCompat<WeakReference<Fragment>> mFragments = new SparseArrayCompat<>();
+    private String[] mFragmentTags ;
+    private final String STATE_SAVE_FRAGMENT_TAGS = "STATE_SAVE_FRAGMENT_TAGS";
+    private final String STATE_SAVE_TAB_CHOOSE = "STATE_SAVE_TAB_CHOOSE";
+    private int mIndexChoose = 0;
 
     /**
      * 空白Tab下标
@@ -39,8 +45,26 @@ public class BottomTabLayoutActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mFragmentTags = savedInstanceState.getStringArray(STATE_SAVE_FRAGMENT_TAGS);
+            mIndexChoose = savedInstanceState.getInt(STATE_SAVE_TAB_CHOOSE);
+        }
+        if (mFragmentTags == null) {
+            mFragmentTags = new String[5];
+        }
         setContentView(R.layout.activity_tabs);
         setupView();
+
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mFragmentTags != null) {
+            outState.putStringArray(STATE_SAVE_FRAGMENT_TAGS, mFragmentTags);
+            outState.putInt(STATE_SAVE_TAB_CHOOSE, mTabLayout.getSelectedTabPosition());
+        }
 
     }
 
@@ -85,11 +109,18 @@ public class BottomTabLayoutActivity extends BaseActivity {
         mTabLayout.addTab(mTabLayout.newTab());
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.auth_icon_twitter)).setText(mTabTitle[2]));
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.auth_icon_twitter)).setText(mTabTitle[3]));
-
+        mTabLayout.getTabAt(mIndexChoose).select();
+        findViewById(R.id.activity_main_cv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BottomTabLayoutActivity.this,MainActivity.class));
+            }
+        });
     }
 
     private void onTabItemSelected(int position) {
         Fragment fragment = null;
+
         if (mFragments.get(position) != null) {
             fragment = mFragments.get(position).get();
         }
@@ -111,9 +142,6 @@ public class BottomTabLayoutActivity extends BaseActivity {
                     fragment = FourthFragment.getInstance();
                     break;
             }
-            if (fragment != null) {
-                mFragments.put(position, new WeakReference<>(fragment));
-            }
         }
 
         if (fragment instanceof FollowFragment) {
@@ -125,9 +153,35 @@ public class BottomTabLayoutActivity extends BaseActivity {
         if (mStatusBarColors != null && mStatusBarColors.length >= position + 1) {
             changeStatusBarColor(mStatusBarColors[position]);
         }
-
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        //解决重叠问题，选中Fragment与已经添加到Frgment中的不一样，那么将不一样的隐藏，如果已经出现过,那么则show，如果没有出现过，就add
+        boolean isAdded = false;
         if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).commit();
+            if (mFragmentTags != null) {
+                for (String tag : mFragmentTags) {
+                    Fragment object = getSupportFragmentManager().findFragmentByTag(tag);
+                    if (object != null) {
+                        if (FragmentUtils.isEquals(object,fragment)) {
+                            transaction.show(object).commit();
+                            isAdded = true;
+                            if (object != fragment) {
+                                mFragments.put(position, new WeakReference<>(object));
+                            }
+                        } else {
+                            transaction.hide(object).commit();
+                        }
+                    }
+                }
+            }
+
+            if (!isAdded) {
+                transaction.add(R.id.home_container, fragment,fragment.getClass().getName()).commit();
+                mFragmentTags[position] = fragment.getClass().getName();
+                mFragments.put(position, new WeakReference<>(fragment));
+            }
         }
+
+
     }
+
 }
