@@ -1,8 +1,8 @@
 package com.scauzx.presenter;
 
 import android.support.annotation.Nullable;
-import scauzx.com.myapplication.BaseActivity;
-import scauzx.com.myapplication.BaseFragment;
+
+import com.scauzx.fragments.BaseFragment;
 
 /**
  *

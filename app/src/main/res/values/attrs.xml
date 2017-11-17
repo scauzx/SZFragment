@@ -25,4 +25,11 @@
         <attr name="needShader" format="boolean"></attr>
         <attr name="adjustSize" format="boolean"></attr>
     </declare-styleable>
+
+    <declare-styleable name="CustomViewPager">
+        <attr name="pagingEnable" format="boolean" />
+        <attr name="animateSwitchEnable" format="boolean" />
+
+    </declare-styleable>
+
 </resources>

@@ -82,15 +82,10 @@
         android:id="@+id/activity_main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:animateSwitchEnable="false"
+        app:pagingEnable="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
 
-    <com.scauzx.widget.CircleImageView
-        android:id="@+id/activity_main_cv"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="10dp"
-        android:clickable="false"
-        android:src="@drawable/icon_start_record" />
+
 
 </android.support.design.widget.CoordinatorLayout>

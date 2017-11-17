@@ -1,13 +1,13 @@
-package scauzx.com.myapplication;
+package com.scauzx.fragments;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.scauzx.presenter.IBasePresenter;
 import com.scauzx.presenter.IBaseView;
 
@@ -21,7 +21,7 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
 
     protected T mPresenter;
     protected View mRootView;
-    private String TAG = "BaseFragment";
+    private String TAG = BaseFragment.class.getSimpleName();
 
     /**
      *     是否已经初始化
@@ -111,6 +111,7 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
+        Log.d(TAG, "Fragment = " + toString() + "isVisibleToUser = " + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (mInitialized) {

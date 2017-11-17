@@ -61,6 +61,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
         mlineSize = a.getDimension(R.styleable.CircleImageView_lineSize,3);
         mNeedShader = a.getBoolean(R.styleable.CircleImageView_needShader,false);
         mAdjust = a.getBoolean(R.styleable.CircleImageView_adjustSize,true);
+        a.recycle();
         Log.d(TAG,"lineSize = " + mlineSize);
 
     }

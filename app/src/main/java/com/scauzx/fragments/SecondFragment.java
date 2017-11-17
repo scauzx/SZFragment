@@ -1,9 +1,11 @@
-package scauzx.com.myapplication;
+package com.scauzx.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+
+import scauzx.com.myapplication.R;
 
 /**
  *
@@ -11,11 +13,11 @@ import android.view.LayoutInflater;
  * @date 2017/11/15
  */
 
-public class FourthFragment extends BaseFragment {
-    private String TAG = "FourthFragment";
+public class SecondFragment extends BaseFragment {
+    private String TAG = "SecondFragment";
 
-    public static FourthFragment getInstance() {
-        return new FourthFragment();
+    public static SecondFragment getInstance() {
+        return new SecondFragment();
     }
 
     @Override
@@ -26,6 +28,12 @@ public class FourthFragment extends BaseFragment {
     @Override
     protected void setupView(LayoutInflater inflater) {
         mRootView = inflater.inflate(R.layout.fragment_second,null);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d(TAG,"SecondFragment setUserVisibleHint = " + isVisibleToUser);
     }
 
 }

@@ -1,4 +1,4 @@
-package scauzx.com.myapplication;
+package com.scauzx.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import scauzx.com.myapplication.R;
+
 /**
  *
  * @author scauzx
@@ -19,7 +21,7 @@ import android.widget.ImageView;
 
 public class FirstFragment extends BaseFragment {
 
-    private static final String TAG = "FirstFragment";
+    private static final String TAG = FirstFragment.class.getSimpleName();
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private static String[] Title = {"First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth"};
