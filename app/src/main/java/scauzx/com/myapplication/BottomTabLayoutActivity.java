@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.SparseArrayCompat;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -153,7 +153,7 @@ public class BottomTabLayoutActivity extends BaseActivity {
         if (mStatusBarColors != null && mStatusBarColors.length >= position + 1) {
             changeStatusBarColor(mStatusBarColors[position]);
         }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentManager manager = getSupportFragmentManager();
         //解决重叠问题，选中Fragment与已经添加到Frgment中的不一样，那么将不一样的隐藏，如果已经出现过,那么则show，如果没有出现过，就add
         boolean isAdded = false;
         if (fragment != null) {
@@ -162,20 +162,20 @@ public class BottomTabLayoutActivity extends BaseActivity {
                     Fragment object = getSupportFragmentManager().findFragmentByTag(tag);
                     if (object != null) {
                         if (FragmentUtils.isEquals(object,fragment)) {
-                            transaction.show(object).commit();
+                            manager.beginTransaction().show(object).commit();
                             isAdded = true;
                             if (object != fragment) {
                                 mFragments.put(position, new WeakReference<>(object));
                             }
                         } else {
-                            transaction.hide(object).commit();
+                            manager.beginTransaction().hide(object).commit();
                         }
                     }
                 }
             }
 
             if (!isAdded) {
-                transaction.add(R.id.home_container, fragment,fragment.getClass().getName()).commit();
+                manager.beginTransaction().add(R.id.home_container, fragment,fragment.getClass().getName()).commit();
                 mFragmentTags[position] = fragment.getClass().getName();
                 mFragments.put(position, new WeakReference<>(fragment));
             }
