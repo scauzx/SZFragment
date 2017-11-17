@@ -50,13 +50,13 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
     }
 
 
-    @Override
-    public void setMenuVisibility(boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-        if (getView() != null) {
-            this.getView().setVisibility(menuVisible ? View.VISIBLE:View.GONE);
-        }
-    }
+//    @Override
+//    public void setMenuVisibility(boolean menuVisible) {
+//        super.setMenuVisibility(menuVisible);
+//        if (getView() != null) {
+//            this.getView().setVisibility(menuVisible ? View.VISIBLE:View.GONE);
+//        }
+//    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
