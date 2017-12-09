@@ -6,11 +6,15 @@ android {
     defaultConfig {
         applicationId "scauzx.com.myapplication"
         minSdkVersion 23
-        targetSdkVersion 26
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
 
         debug {
@@ -36,7 +40,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile group: 'com.android.support', name: 'design', version: '26.+'
     compile group: 'io.reactivex', name: 'rxjava', version: '1.1.9'
-
+    compile 'com.facebook.fresco:fresco:1.5.0'
 
     testCompile 'junit:junit:4.12'
 }

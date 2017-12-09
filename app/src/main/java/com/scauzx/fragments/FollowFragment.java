@@ -41,6 +41,12 @@ public class FollowFragment extends BaseFragment {
     protected void setupView(LayoutInflater inflater) {
         super.setupView(inflater);
         mRootView = inflater.inflate(R.layout.fragment_main, null);
+    }
+
+
+    @Override
+    protected void onTabBuild(View view) {
+        super.onTabBuild(view);
         mPresenter = new DataSourcePresenter(this);
         mTabLayout =  mRootView.findViewById(R.id.activity_main_tablayout);
         mMyAdapter = new MyAdapter(getFragmentManager());
@@ -49,9 +55,7 @@ public class FollowFragment extends BaseFragment {
         mTabLayout.setOnTabStateChangeListener(mMyAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         initToolBar();
-
     }
-
 
     @Override
     protected void refreshTab() {

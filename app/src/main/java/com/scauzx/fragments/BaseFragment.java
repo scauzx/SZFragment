@@ -13,7 +13,7 @@ import com.scauzx.presenter.IBasePresenter;
 import com.scauzx.presenter.IBaseView;
 
 /**
- *
+ * 针对有ViewPager的Fragment 才会有setUserVisibleHint ，防止ViewPager一进入就初始化多个Fragment
  * @author scauzx
  * @date 2017/11/15
  */
@@ -24,13 +24,14 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
     protected View mRootView;
     private String TAG = BaseFragment.class.getSimpleName();
 
+    protected boolean mMenuVisibleToUser = true;
+
     /**
      *     是否已经初始化
      */
     protected boolean mInitialized = false;
 
     private static final String STATE_SAVE_IS_HIDDEN = "STATE_SAVE_IS_HIDDEN";
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,14 +50,18 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
         }
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
-//    @Override
-//    public void setMenuVisibility(boolean menuVisible) {
-//        super.setMenuVisibility(menuVisible);
-//        if (getView() != null) {
-//            this.getView().setVisibility(menuVisible ? View.VISIBLE:View.GONE);
-//        }
-//    }
+    }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        mMenuVisibleToUser = menuVisible;
+        Log.d(TAG, "setMenuVisibility=" + menuVisible);
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -83,17 +88,19 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, this.toString() + "onViewCreated");
+        Log.d(TAG, this.toString() + "onViewCreated " + "mInitialized = " + mInitialized );
 
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
-            setUserVisibleHint(true);
+            //setUserVisibleHint(true);
         }
 
-        if (getUserVisibleHint() && !mInitialized) {
+        if (getUserVisibleHint() && !mInitialized && mMenuVisibleToUser) {
             setupTab();
         }
     }
+
+
 
     /**
      * Fragment第一次可见时
@@ -114,15 +121,15 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
      *
      * @param view
      */
-    private void onTabBuild(View view) {
-        Log.d(TAG,"onTabBuild");
+    protected void onTabBuild(View view) {
+        Log.d(TAG, this.toString() + " onTabBuild");
     }
 
     /**
      * Fragment重新可见时要做的操作
      */
     protected void refreshTab(){
-        Log.d(TAG,"refreshTab");
+        Log.d(TAG, this.toString() + "refreshTab");
     }
 
     protected void setupView(LayoutInflater inflater) {
@@ -148,7 +155,7 @@ public class BaseFragment <T extends IBasePresenter> extends Fragment implements
     public void setUserVisibleHint(boolean isVisibleToUser) {
         Log.d(TAG, "Fragment = " + toString() + "isVisibleToUser = " + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && mMenuVisibleToUser) {
             if (mInitialized) {
                 refreshTab();
             } else {

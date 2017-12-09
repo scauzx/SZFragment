@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-
 import scauzx.com.myapplication.R;
 
 /**
