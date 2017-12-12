@@ -74,12 +74,18 @@ public class BannerPageView extends FrameLayout implements View.OnTouchListener{
 
 
     public void bindData(List<BannerInfo> list) {
+        if (list == null || list.size() == 0) {
+            return;
+        }
         mBannerInfos.clear();
         mBannerInfos.addAll(list);
         mAdapter.notifyDataSetChanged();
         mViewPager.setCurrentItem(getInitPosition(), false);
-        initIndicator(0);
-        startLoop();
+        //轮询图数量>1才进行轮询
+        if (list.size() > 1) {
+            initIndicator(0);
+            startLoop();
+        }
     }
 
 
@@ -88,7 +94,7 @@ public class BannerPageView extends FrameLayout implements View.OnTouchListener{
      * @param index
      */
     public void initIndicator(int index) {
-        if (mBannerInfos.isEmpty() || mBannerInfos.size() == 1) {
+        if (mBannerInfos.isEmpty() || mBannerInfos.size() <= 1) {
             return;
         }
         mIndicator.removeAllViews();
