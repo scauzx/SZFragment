@@ -3,9 +3,8 @@ package com.scauzx.fragments.follow.presenter;
 import android.support.annotation.Nullable;
 import com.scauzx.base.presenter.BasePresenterImp;
 import com.scauzx.fragments.follow.model.IFollowMode;
-import com.scauzx.fragments.follow.model.IFollowModeImp;
+import com.scauzx.fragments.follow.model.FollowModeImp;
 import com.scauzx.fragments.follow.view.IFollowView;
-
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public class FollowPresenter extends BasePresenterImp<IFollowView,IFollowMode> i
 
     public FollowPresenter(@Nullable IFollowView view) {
         super(view);
-        mProxy = new IFollowModeImp(this);
+        mProxy = new FollowModeImp(this);
     }
 
     @Override

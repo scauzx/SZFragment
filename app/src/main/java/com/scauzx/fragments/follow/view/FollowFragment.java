@@ -20,9 +20,7 @@ import com.scauzx.fragments.ThirdFragment;
 import com.scauzx.fragments.follow.presenter.FollowPresenter;
 import com.scauzx.fragments.follow.presenter.IFollowPresenter;
 import com.scauzx.widget.PagerSlidingTabStrip;
-
 import java.util.List;
-
 import scauzx.com.myapplication.R;
 
 /**

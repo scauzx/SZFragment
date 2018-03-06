@@ -10,9 +10,9 @@ import com.scauzx.fragments.follow.presenter.IFollowPresenter;
  * @date 2018/3/6
  */
 
-public class IFollowModeImp extends BaseMode<IFollowPresenter> implements IFollowMode{
+public class FollowModeImp extends BaseMode<IFollowPresenter> implements IFollowMode{
 
-    public IFollowModeImp(IFollowPresenter presenter) {
+    public FollowModeImp(IFollowPresenter presenter) {
         this.mPresenter = presenter;
     }
 
