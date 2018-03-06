@@ -21,7 +21,9 @@ public abstract class BasePresenterImp<T extends IBaseView, M extends IMode> imp
     @Nullable
     protected M mProxy;
 
-    //Rxjava 订阅者 ps:如果执行unsubscribe()后,此实例不能再使用
+    /**
+     * Rxjava 订阅者 ps:如果执行unsubscribe()后,此实例不能再使用
+     */
     @NonNull
     protected CompositeSubscription mSubscription;
 

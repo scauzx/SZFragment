@@ -19,11 +19,8 @@ public class IFollowModeImp extends BaseMode<IFollowPresenter> implements IFollo
     @Override
     public void fetchPersonInfo() {
         //TODO 获取数据
-
         if (mPresenter != null) {
-            mPresenter.fetchPersonInfo();
+            mPresenter.handleFetchPersonInfo(null, false);
         }
-
-
     }
 }

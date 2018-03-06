@@ -27,7 +27,7 @@ import scauzx.com.myapplication.R;
  */
 
 public class SecondFragment extends BaseFragment {
-    private String TAG = "SecondFragment";
+    private String TAG = SecondFragment.class.getSimpleName();
 
     private BannerPageView mBannerView;
     private List<BannerInfo> mBannerInfo = new ArrayList<>();

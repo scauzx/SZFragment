@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import com.scauzx.base.presenter.IBasePresenter;
 
 /**
- * Created by Administrator on 2018/3/6.
+ *
+ * @author scauzx
+ * @date 2018/3/6
  */
 
 public abstract class BaseMode<T extends IBasePresenter> implements IMode {
@@ -15,6 +17,9 @@ public abstract class BaseMode<T extends IBasePresenter> implements IMode {
 
     @Override
     public void destroy() {
-
+        //释放引用
+        if (mPresenter != null) {
+            mPresenter = null;
+        }
     }
 }
