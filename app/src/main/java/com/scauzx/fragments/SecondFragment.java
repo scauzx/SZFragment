@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -59,7 +58,7 @@ public class SecondFragment extends BaseFragment {
      //   mBannerView = mRootView.findViewById(R.id.banner_view);
         mRecyclerView = mRootView.findViewById(R.id.second_image_recycler);
         mFreshLayout = mRootView.findViewById(R.id.refresh_layout);
-        initIamgeInfos(3);
+        initImageInfos(3);
         mAdapter = new SecondImageListAdapter(mUserImages);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new WrappedStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -73,7 +72,7 @@ public class SecondFragment extends BaseFragment {
                 mUiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        initIamgeInfos(2);
+                        initImageInfos(2);
                         mFreshLayout.setRefreshing(false);
                         mAdapter.notifyDataSetChanged();                    }
                 }, 500);
@@ -86,7 +85,7 @@ public class SecondFragment extends BaseFragment {
 
 
 
-    public void initIamgeInfos(int count) {
+    public void initImageInfos(int count) {
         for (int i = 0; i < count; i++) {
             mUserImages.add(new BannerInfo("https://raw.githubusercontent.com/scauzx/SZFragment/master/app/src/main/res/drawable/test01.jpg", "https://raw.githubusercontent.com/scauzx/SZFragment/master/app/src/main/res/drawable/test01.jpg"));
             mUserImages.add(new BannerInfo("https://raw.githubusercontent.com/scauzx/SZFragment/master/app/src/main/res/drawable/test02.jpg", "https://raw.githubusercontent.com/scauzx/SZFragment/master/app/src/main/res/drawable/test02.jpg"));
