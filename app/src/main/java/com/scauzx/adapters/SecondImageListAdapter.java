@@ -33,8 +33,8 @@ public class SecondImageListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private List<BannerInfo> mDatas;
     private List<BannerInfo> mBannerInfos;
 
-    public SecondImageListAdapter(List<BannerInfo> datas) {
-        this.mDatas = datas;
+    public SecondImageListAdapter(List<BannerInfo> info) {
+        this.mDatas = info;
     }
 
     public void setBannerInfos(List<BannerInfo> bannerInfos) {
