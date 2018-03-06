@@ -1,6 +1,4 @@
-package com.scauzx.presenter;
-
-import android.os.Parcelable;
+package com.scauzx.base.view;
 
 /**
  *

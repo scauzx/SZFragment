@@ -1,4 +1,4 @@
-package com.scauzx.fragments;
+package com.scauzx.fragments.follow.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,9 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.scauzx.presenter.DataSourcePresenter;
+import com.scauzx.fragments.BaseCacheStatePagerAdapter;
+import com.scauzx.fragments.BaseFragment;
+import com.scauzx.fragments.FirstFragment;
+import com.scauzx.fragments.FourthFragment;
+import com.scauzx.fragments.SecondFragment;
+import com.scauzx.fragments.ThirdFragment;
+import com.scauzx.fragments.follow.presenter.FollowPresenter;
+import com.scauzx.fragments.follow.presenter.IFollowPresenter;
 import com.scauzx.widget.PagerSlidingTabStrip;
+
+import java.util.List;
 
 import scauzx.com.myapplication.R;
 
@@ -23,7 +31,7 @@ import scauzx.com.myapplication.R;
  * @date 2017/11/16
  */
 
-public class FollowFragment extends BaseFragment {
+public class FollowFragment extends BaseFragment<IFollowPresenter> implements IFollowView{
 
     private Toolbar mToolBar;
     private ViewPager mViewPager;
@@ -47,7 +55,7 @@ public class FollowFragment extends BaseFragment {
     @Override
     protected void onTabBuild(View view) {
         super.onTabBuild(view);
-        mPresenter = new DataSourcePresenter(this);
+        mPresenter = new FollowPresenter(this);
         mTabLayout =  mRootView.findViewById(R.id.activity_main_tablayout);
         mMyAdapter = new MyAdapter(getFragmentManager());
         mViewPager = mRootView.findViewById(R.id.activity_main_viewpager);
@@ -74,6 +82,10 @@ public class FollowFragment extends BaseFragment {
 //        }
     }
 
+    @Override
+    public void handleFetchPersonInfo(List<Object> info, boolean success) {
+        //这里只是提供mvp使用例子，这个暂不实现
+    }
 
 
     class MyAdapter extends BaseCacheStatePagerAdapter implements PagerSlidingTabStrip.OnTabStateChangeListener,PagerSlidingTabStrip.ViewTabProvider{

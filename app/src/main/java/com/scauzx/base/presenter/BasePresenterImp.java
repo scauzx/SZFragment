@@ -1,8 +1,9 @@
-package com.scauzx.presenter;
+package com.scauzx.base.presenter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
+import com.scauzx.base.model.IMode;
+import com.scauzx.base.view.IBaseView;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -11,7 +12,7 @@ import rx.subscriptions.CompositeSubscription;
  * @date 2017/11/15
  */
 
-public abstract class BasePresenterImp <T extends  IBaseView, M extends IMode> implements IBasePresenter{
+public abstract class BasePresenterImp<T extends IBaseView, M extends IMode> implements IBasePresenter {
 
     //视图
     @Nullable

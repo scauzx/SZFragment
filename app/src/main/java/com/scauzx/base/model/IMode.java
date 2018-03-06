@@ -1,4 +1,4 @@
-package com.scauzx.presenter;
+package com.scauzx.base.model;
 
 /**
  *

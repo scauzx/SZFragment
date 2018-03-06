@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.scauzx.presenter.IBasePresenter;
-import com.scauzx.presenter.IBaseView;
+import com.scauzx.base.presenter.IBasePresenter;
+import com.scauzx.base.view.IBaseView;
 
 /**
  * 针对有ViewPager的Fragment 才会有setUserVisibleHint ，防止ViewPager一进入就初始化多个Fragment

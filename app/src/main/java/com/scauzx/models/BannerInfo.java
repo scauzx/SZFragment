@@ -1,7 +1,9 @@
 package com.scauzx.models;
 
 /**
- * Created by Administrator on 2017/12/7.
+ *
+ * @author scauzx
+ * @date 2017/12/7
  */
 
 public class BannerInfo {
