@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.scauzx.base.presenter.IBasePresenter;
 import com.scauzx.base.view.IBaseView;
 
