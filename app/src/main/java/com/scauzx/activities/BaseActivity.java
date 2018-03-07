@@ -1,4 +1,4 @@
-package scauzx.com.myapplication;
+package com.scauzx.activities;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +12,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.scauzx.presenter.IBasePresenter;
-import com.scauzx.presenter.IBaseView;
+import com.scauzx.base.presenter.IBasePresenter;
+import com.scauzx.base.view.IBaseView;
+
 import java.lang.ref.WeakReference;
 
 /**

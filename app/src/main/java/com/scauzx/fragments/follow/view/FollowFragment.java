@@ -61,6 +61,7 @@ public class FollowFragment extends BaseFragment<IFollowPresenter> implements IF
         mTabLayout.setOnTabStateChangeListener(mMyAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         initToolBar();
+        mPresenter.fetchPersonInfo();
     }
 
     @Override
@@ -129,28 +130,17 @@ public class FollowFragment extends BaseFragment<IFollowPresenter> implements IF
                 return;
             }
             if (view instanceof TextView) {
-                if (isSelected) {
-                    ((TextView)view).setTextColor(Color.parseColor("#FFCE46EC"));
-                    ((TextView)view).setTypeface(null, Typeface.BOLD);
-                } else {
-                    ((TextView)view).setTextColor(Color.parseColor("#999999"));
-                    ((TextView)view).setTypeface(null, Typeface.NORMAL);
-                }
+                ((TextView)view).setTextColor(Color.parseColor(isSelected ? "#FFCE46EC" : "#999999"));
+                ((TextView)view).setTypeface(null, isSelected ? Typeface.BOLD : Typeface.NORMAL);
             } else {
                 TabViewHolder holder = (TabViewHolder) view.getTag();
-                if (isSelected) {
-                    holder.text.setTextColor(Color.parseColor("#FFCE46EC"));
-                    holder.text.setTypeface(null, Typeface.BOLD);
-                } else {
-                    holder.text.setTextColor(Color.parseColor("#999999"));
-                    holder.text.setTypeface(null, Typeface.NORMAL);
-                }
+                holder.text.setTextColor(Color.parseColor(isSelected ? "#FFCE46EC" : "#999999"));
+                holder.text.setTypeface(null, isSelected ? Typeface.BOLD : Typeface.NORMAL);
             }
         }
 
         @Override
         public View getPageView(int position) {
-
             TabViewHolder tabViewHolder = TabViewHolder.newTab(getActivity());
             tabViewHolder.text.setText(getPageTitle(position));
             tabViewHolder.icon.setImageResource(R.mipmap.auth_icon_twitter);

@@ -74,7 +74,8 @@ public class SecondFragment extends BaseFragment {
                     public void run() {
                         initImageInfos(2);
                         mFreshLayout.setRefreshing(false);
-                        mAdapter.notifyDataSetChanged();                    }
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }, 500);
 
 

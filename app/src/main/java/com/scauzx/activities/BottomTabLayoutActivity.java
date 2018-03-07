@@ -1,4 +1,4 @@
-package scauzx.com.myapplication;
+package com.scauzx.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,13 +10,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.util.SparseArrayCompat;
 import android.view.View;
 import android.widget.FrameLayout;
-import com.scauzx.fragments.follow.view.FollowFragment;
+
 import com.scauzx.fragments.FourthFragment;
 import com.scauzx.fragments.SecondFragment;
 import com.scauzx.fragments.ThirdFragment;
+import com.scauzx.fragments.follow.view.FollowFragment;
 import com.scauzx.utils.FragmentUtils;
 import com.scauzx.utils.OsUtil;
+
 import java.lang.ref.WeakReference;
+
+import scauzx.com.myapplication.R;
 
 /**
  * @author scauzx

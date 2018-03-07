@@ -1,16 +1,17 @@
-package scauzx.com.myapplication;
+package com.scauzx.activities;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.scauzx.fragments.BaseCacheStatePagerAdapter;
 import com.scauzx.fragments.FirstFragment;
 import com.scauzx.fragments.FourthFragment;
@@ -19,11 +20,13 @@ import com.scauzx.fragments.ThirdFragment;
 import com.scauzx.utils.OsUtil;
 import com.scauzx.widget.PagerSlidingTabStrip;
 
+import scauzx.com.myapplication.R;
+
 
 /**
  * @author scauzx
  */
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity {
     private Toolbar mToolBar;
     private ViewPager mViewPager;
     private PagerSlidingTabStrip mTabLayout;
