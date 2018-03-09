@@ -1,6 +1,5 @@
 package com.scauzx.task;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -248,7 +247,7 @@ public class AppExecutors {
 
     private synchronized void ensureNewWorkExecuteCreated() {
         if (mNetWorkServices == null) {
-            mNetWorkServices = Executors.newFixedThreadPool(2, new NamedThreadFactory("network_global_thread", THREAD_NETWORK_PRIORITY));
+            mNetWorkServices = Executors.newFixedThreadPool(3, new NamedThreadFactory("network_global_thread", THREAD_NETWORK_PRIORITY));
         }
     }
 

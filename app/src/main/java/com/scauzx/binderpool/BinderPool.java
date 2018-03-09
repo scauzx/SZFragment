@@ -11,6 +11,11 @@ import android.util.Log;
 
 
 /**
+ * <p>
+ *  IBinderPool.Stub.asInterface(IBinder), onServiceConnected返回的Ibinder对象，如果是在同一进程内，会直接返回Ibinder对象本身，不是同一个进程则返回代理对象Proxy
+ *  IBinder 的linkToDeath(DeathRecipient recipient, int flags) 方法监听连接是否连接着,DeathRecipient类中的binderDied方法则表现 此IBinder已断开连接，断开的可能性有很多种
+ *  也可能是IBinder所在进程已死
+ * </p>
  *
  * IBinder管理类，返回多个类型的IBinder,DeathRecipient实现进程间的相互监听
  * @author Administrator
@@ -30,7 +35,8 @@ public class BinderPool {
     ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            mBinderPool = IBinderPool.Stub.asInterface(service); //拿到BinderPoolService的 IBinder对象，监听所在进程生命
+            //拿到BinderPoolService的 IBinder对象,代理类，监听所在进程生命
+            mBinderPool = IBinderPool.Stub.asInterface(service);
             try {
                 mBinderPool.asBinder().linkToDeath(mServiceDeathRecipient, 0);
             } catch (RemoteException e) {

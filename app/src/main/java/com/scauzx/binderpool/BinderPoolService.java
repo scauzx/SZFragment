@@ -12,7 +12,7 @@ import com.scauzx.task.TaskType;
 
 /**
  *
- * @author Administrator
+ * @author scauzx
  * @date 2018/3/9
  */
 
@@ -26,6 +26,9 @@ public class BinderPoolService extends Service {
         return mBinderPool;
     }
 
+    /**
+     * 详细可参考 http://blog.csdn.net/free555/article/details/14754323
+     */
     class BinderPoolImp extends IBinderPool.Stub {
 
         private IBinder mClientBinder;
@@ -33,7 +36,7 @@ public class BinderPoolService extends Service {
             @Override
             public void binderDied() {
                 Log.i(TAG, "client process die");
-                unlinkToDeath(mClientDeathRecipient, 0);
+                mClientBinder.unlinkToDeath(mClientDeathRecipient, 0);
                 mClientBinder = null;
                 AppExecutors.get().executeDelay(TaskType.BACKGROUND, new Runnable() {
                     @Override
