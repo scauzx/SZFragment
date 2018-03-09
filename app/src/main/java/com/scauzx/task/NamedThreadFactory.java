@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2018/3/7
  */
 
-public class NamedThreadFactory implements ThreadFactory {
+class NamedThreadFactory implements ThreadFactory {
     private final ThreadFactory mDefaultThreadFactory;
     private final int mPriority;
     private final String mBaseName;
@@ -28,6 +28,6 @@ public class NamedThreadFactory implements ThreadFactory {
         Thread thread = mDefaultThreadFactory.newThread(r);
         thread.setName(mBaseName + "-" + mCount.getAndIncrement()); //线程安全自增
         thread.setPriority(mPriority);
-        return null;
+        return thread;
     }
 }

@@ -13,7 +13,7 @@ public enum TaskType {
      * 优先级较低(NORMAL-2)
      * 执行后台常规任务
      */
-    BAKCGROUND,
+    BACKGROUND,
 
 
     /**

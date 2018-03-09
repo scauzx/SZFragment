@@ -25,7 +25,7 @@ import java.lang.ref.WeakReference;
 
 public class BaseActivity <T extends IBasePresenter>extends AppCompatActivity implements IBaseView{
 
-    T mPresenter;
+    protected T mPresenter;
 
     public WeakReference<BaseActivity> mCurrentActivity = new WeakReference<>(null);
     public WeakReference<BaseActivity> mLastActivity = new WeakReference<>(null);

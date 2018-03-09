@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="scauzx.com.myapplication">
 
-   <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
         <activity
-            android:name="com.scauzx.activities.BottomTabLayoutActivity"
+            android:name="com.scauzx.aidl.BookMangerActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.scauzx.activities.MainActivity"></activity>
+        <activity android:name="com.scauzx.activities.MainActivity" />
+
+        <activity android:name="com.scauzx.activities.BottomTabLayoutActivity" />
+
+        <service
+            android:name="com.scauzx.aidl.BookManagerService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":services"
+            ></service>
     </application>
 
 </manifest>

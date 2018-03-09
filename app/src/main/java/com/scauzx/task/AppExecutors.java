@@ -1,5 +1,6 @@
 package com.scauzx.task;
 
+import java.util.IllegalFormatCodePointException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,7 +34,7 @@ public class AppExecutors {
     private final int THREAD_NETWORK_PRIORITY = Thread.NORM_PRIORITY + 2;
 
 
-    public AppExecutors get() {
+    public static AppExecutors get() {
         if (sInstance == null) {
             synchronized (AppExecutors.class) {
                 if (sInstance == null) {
@@ -51,7 +52,7 @@ public class AppExecutors {
      * @param runnable 执行任务
      * @return
      */
-    public Subscription execute(TaskType taskType, final Runnable runnable, final Consumer<Throwable> errorHandler) {
+    public Subscription execute(TaskType taskType, final Runnable runnable) {
         return execute(taskType, new Callable<Object>() {
 
             @Override
@@ -62,6 +63,19 @@ public class AppExecutors {
                 return null;
             }
         }, null, null);
+    }
+
+
+    public <T> Subscription execute(TaskType taskType, final  Runnable runnable, final Consumer<T> UICallback) {
+        return execute(taskType, new Callable<T>() {
+            @Override
+            public T call() throws Exception {
+                if (runnable != null) {
+                    runnable.run();
+                }
+                return null;
+            }
+        }, UICallback,  null);
     }
 
 
@@ -77,7 +91,7 @@ public class AppExecutors {
     public <T> Subscription execute(TaskType taskType, final Callable<T> task, final Consumer<T> UICallback, final Consumer<Throwable> errorHandler) {
         Scheduler scheduler = null;
         switch (taskType) {
-            case BAKCGROUND:
+            case BACKGROUND:
                 if (mBackGroundServices == null) {
                     ensureBackGroundExecuteCreated();
                 }
@@ -103,7 +117,7 @@ public class AppExecutors {
                 break;
 
             default:
-                break;
+                throw new IllegalArgumentException("task type is not supported!!!");
 
         }
         return Single.fromCallable(task).subscribeOn(scheduler).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<T>() {
@@ -158,7 +172,7 @@ public class AppExecutors {
     public <T> Subscription executeDelay(TaskType taskType, final long delay, final Callable<T> task, final Consumer<T> UICallback, final Consumer<Throwable> errorHandler) {
         Scheduler scheduler = null;
         switch (taskType) {
-            case BAKCGROUND:
+            case BACKGROUND:
                 if (mBackGroundServices == null) {
                     ensureBackGroundExecuteCreated();
                 }
