@@ -41,23 +41,29 @@ public class BinderPoolActivity extends BaseActivity implements View.OnClickList
     public void doWork() {
         BinderPool binderPool = BinderPool.getInstance(getApplicationContext());
         binderPool.setBinder(mBinder);
-        IBinder binder = binderPool.queryBinder(BinderPool.BINDER_COMPUTE);
-        ICompute computeImp = ComputeImp.asInterface(binder);
-        try {
-            Log.i(TAG, "ComputeImp compute result = " + computeImp.add(1, 2));
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        IBinder computeBinder = binderPool.queryBinder(BinderPool.BINDER_COMPUTE);
+        if (computeBinder != null) {
+            ICompute computeImp = ComputeImp.asInterface(computeBinder);
+            try {
+                Log.i(TAG, "ComputeImp compute result = " + computeImp.add(1, 2));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
-        //拿到代理类，执行代理操作
-        ISecurityCenter securityCenter = SecurityCenterImp.asInterface(binderPool.queryBinder(BinderPool.BINDER_SECURITY_CENTER));
 
-        try {
-            String encrypt = securityCenter.encrypt("hello");
-            Log.i(TAG, "securityCenter encrypt hello = " + encrypt);
-            Log.i(TAG, "securityCenter decrypt encrypt = " + securityCenter.decrypt(encrypt));
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        //拿到代理类，执行代理操作
+        IBinder securityCenterBinder = binderPool.queryBinder(BinderPool.BINDER_SECURITY_CENTER);
+        if (securityCenterBinder != null) {
+            ISecurityCenter securityCenter = SecurityCenterImp.asInterface(securityCenterBinder);
+            try {
+                String encrypt = securityCenter.encrypt("hello");
+                Log.i(TAG, "securityCenter encrypt hello = " + encrypt);
+                Log.i(TAG, "securityCenter decrypt encrypt = " + securityCenter.decrypt(encrypt));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void work() {

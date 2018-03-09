@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
+import java.util.concurrent.CountDownLatch;
 
 
 /**
@@ -32,6 +33,11 @@ public class BinderPool {
     private IBinderPool mBinderPool;
     private Context mContext;
 
+    /**
+     * 使用说明 http://www.importnew.com/21889.html
+     */
+    private CountDownLatch mConnectBinderPoolCountDownLatch;
+
     ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -41,6 +47,9 @@ public class BinderPool {
                 mBinderPool.asBinder().linkToDeath(mServiceDeathRecipient, 0);
             } catch (RemoteException e) {
                 e.printStackTrace();
+            }
+            if (mConnectBinderPoolCountDownLatch != null) {
+                mConnectBinderPoolCountDownLatch.countDown();
             }
         }
 
@@ -65,8 +74,14 @@ public class BinderPool {
 
     private void bindBinderPoolService() {
         if (mContext != null) {
+            mConnectBinderPoolCountDownLatch = new CountDownLatch(1);
             Intent intent = new Intent(mContext, BinderPoolService.class);
             mContext.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+            try {
+                mConnectBinderPoolCountDownLatch.await(); //上面代码执行完才可以执行下面代码，要保证连接完成拿到binder之后才可以拿binder去执行binder的方法
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
