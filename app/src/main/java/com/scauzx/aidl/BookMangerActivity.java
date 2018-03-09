@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +32,7 @@ public class BookMangerActivity extends BaseActivity implements View.OnClickList
     private IOnNewBookArrivedListener.Stub mOnNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
         @Override
         public void onNewBookArrived(Book newBook) throws RemoteException {
-            Log.d(TAG, "receive new book :" + newBook.toString());
+//            Log.d(TAG, "receive new book :" + newBook.toString());
         }
     };
 
@@ -47,6 +48,12 @@ public class BookMangerActivity extends BaseActivity implements View.OnClickList
 
     private void setupView() {
         findViewById(R.id.btn_get).setOnClickListener(this);
+        findViewById(R.id.btn_in).setOnClickListener(this);
+        findViewById(R.id.btn_out).setOnClickListener(this);
+        findViewById(R.id.btn_inout).setOnClickListener(this);
+        findViewById(R.id.btn_with_oneway).setOnClickListener(this);
+        findViewById(R.id.btn_without_oneway).setOnClickListener(this);
+
     }
 
 
@@ -109,6 +116,121 @@ public class BookMangerActivity extends BaseActivity implements View.OnClickList
             case R.id.btn_get:
                 doGet();
                 break;
+
+            case R.id.btn_in:
+                doIn();
+                break;
+
+            case R.id.btn_out:
+                doOut();
+                break;
+
+            case R.id.btn_inout:
+                doInOut();
+                break;
+
+            case R.id.btn_with_oneway:
+                doWithOneWay();
+                break;
+
+            case R.id.btn_without_oneway:
+                doWithOutOneWay();
+
+        }
+    }
+
+    private void doWithOutOneWay() {
+        if (mRemoteBookManager != null) {
+//            try {
+//                mRemoteBookManager.testWithoutOneWay(1, "doWithOutOneWay", new IResultListener.Stub() {
+//                    @Override
+//                    public void onSunncess(int count) throws RemoteException {
+//                        Log.i(TAG, "doWithOutOneWay count = " + count);
+//                    }
+//
+//                    @Override
+//                    public void onFailed(int onResCode) throws RemoteException {
+//                        Log.i(TAG, "doWithOutOneWay onResCode = " + onResCode);
+//                    }
+//                });
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
+            long start = SystemClock.elapsedRealtime();
+            for  (int i = 0; i < 200; i++) {
+                try {
+                    mRemoteBookManager.testWithoutOneWay(i, "doWithOutOneWay" + i, null);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d(TAG, "doWithOutOneWay cost " + (SystemClock.elapsedRealtime() - start));
+        }
+    }
+
+    private void doWithOneWay() {
+        if (mRemoteBookManager != null) {
+//            try {
+//                mRemoteBookManager.testWithOneWay(1, "doWithOneWay", new IResultListener.Stub() {
+//                    @Override
+//                    public void onSunncess(int count) throws RemoteException {
+//                        Log.i(TAG, "doWithOneWay count = " + count);
+//                    }
+//
+//                    @Override
+//                    public void onFailed(int onResCode) throws RemoteException {
+//                        Log.i(TAG, "doWithOneWay onResCode = " + onResCode);
+//                    }
+//                });
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
+           long start = SystemClock.elapsedRealtime();
+            for  (int i = 0; i < 200; i++) {
+                try {
+                    mRemoteBookManager.testWithOneWay(i, "doWithOneWay" + i, null);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d(TAG, "doWithOneWay cost " + (SystemClock.elapsedRealtime() - start));
+        }
+    }
+
+    private void doInOut() {
+        if (mRemoteBookManager != null) {
+            Book book = new Book(1, "doInOut");
+            try {
+                mRemoteBookManager.addBookInOut(book);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            Log.i(TAG, "doInOut book = " + book.toString());
+        }
+    }
+
+    private void doOut() {
+        if (mRemoteBookManager != null) {
+            Book book = new Book(1, "doOut");
+            try {
+                mRemoteBookManager.addBookOut(book);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            Log.i(TAG, "doOut book = " + book.toString());
+        }
+    }
+
+
+    private void doIn() {
+        if (mRemoteBookManager != null) {
+            Book book = new Book(1, "doIn");
+            try {
+                mRemoteBookManager.addBookIn(book);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+           Log.i(TAG, "doIn book = " + book.toString());
         }
     }
 

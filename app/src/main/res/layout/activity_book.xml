@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <Button
         android:id="@+id/btn_get"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="229dp" />
-</RelativeLayout>
+        android:text="Get"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/btn_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="in"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:id="@+id/btn_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="out"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:id="@+id/btn_inout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="inout"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:id="@+id/btn_with_oneway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="oneway"
+        android:layout_marginTop="5dp" />
+    <Button
+        android:id="@+id/btn_without_oneway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="without_oneway"
+        android:layout_marginTop="5dp" />
+
+
+</LinearLayout>

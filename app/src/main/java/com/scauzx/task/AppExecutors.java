@@ -9,7 +9,9 @@ import rx.Scheduler;
 import rx.Single;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.exceptions.Exceptions;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -146,7 +148,7 @@ public class AppExecutors {
      * @param runnable
      * @return
      */
-    public Subscription executeDelay(TaskType taskType, long delay, final Runnable runnable) {
+    public Subscription executeDelay(TaskType taskType, final Runnable runnable, long delay) {
         return executeDelay(taskType, delay, new Callable<Void>() {
             @Override
             public Void call() throws Exception {
@@ -201,22 +203,34 @@ public class AppExecutors {
                 break;
 
         }
-        return Single.fromCallable(task).delay(delay, TimeUnit.MILLISECONDS).subscribeOn(scheduler).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<T>() {
-            @Override
-            public void call(T t) {
-                if (UICallback != null) {
-                    UICallback.accept(t);
-                }
-            }
-        }, new Action1<Throwable>() {
+        return  Single.just(0)
+                .delay(delay, TimeUnit.MILLISECONDS)
+                .map(new Func1<Integer, T>() {
+                    @Override
+                    public T call(Integer integer) {
+                        try {
+                            return task.call();
+                        } catch (Exception e) {
+                            throw Exceptions.propagate(e);
+                        }
+                    }
+                }).subscribeOn(scheduler).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<T>() {
+                    @Override
+                    public void call(T t) {
+                        if (UICallback != null) {
+                            UICallback.accept(t);
+                        }
+                    }
+                }, new Action1<Throwable>() {
 
-            @Override
-            public void call(Throwable throwable) {
-                if (errorHandler != null) {
-                    errorHandler.accept(throwable);
-                }
-            }
-        });
+                    @Override
+                    public void call(Throwable throwable) {
+                        if (errorHandler != null) {
+                            errorHandler.accept(throwable);
+                        }
+                    }
+                });
+
     }
 
 

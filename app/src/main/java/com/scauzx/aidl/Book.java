@@ -19,6 +19,11 @@ public class Book implements Parcelable{
         bookName = in.readString();
     }
 
+    public void readFromParcel(Parcel in) {
+        bookId = in.readInt();
+        bookName = in.readString();
+    }
+
     public static final Creator<Book> CREATOR = new Creator<Book>() {
         @Override
         public Book createFromParcel(Parcel in) {
@@ -34,6 +39,10 @@ public class Book implements Parcelable{
     public Book(int bookId, String bookName) {
         this.bookId = bookId;
         this.bookName = bookName;
+    }
+
+    public Book() {
+
     }
 
     @Override

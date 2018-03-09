@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
         <activity
-            android:name="com.scauzx.aidl.BookMangerActivity"
+            android:name="com.scauzx.binderpool.BinderPoolActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,13 @@
         <activity android:name="com.scauzx.activities.MainActivity" />
 
         <activity android:name="com.scauzx.activities.BottomTabLayoutActivity" />
+        <activity android:name="com.scauzx.aidl.BookMangerActivity"></activity>
 
+        <service android:name="com.scauzx.binderpool.BinderPoolService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":services"
+            ></service>
         <service
             android:name="com.scauzx.aidl.BookManagerService"
             android:enabled="true"
