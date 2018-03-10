@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 
 
 /**
+ * Tips https://github.com/buunguyen/octotree 谷歌插件 octotree查看git代码
  * <p>
  *  IBinderPool.Stub.asInterface(IBinder), onServiceConnected返回的Ibinder对象，如果是在同一进程内，会直接返回Ibinder对象本身，不是同一个进程则返回代理对象Proxy
  *  IBinder 的linkToDeath(DeathRecipient recipient, int flags) 方法监听连接是否连接着,DeathRecipient类中的binderDied方法则表现 此IBinder已断开连接，断开的可能性有很多种
@@ -19,7 +20,7 @@ import java.util.concurrent.CountDownLatch;
  *</p>
  *
  * <p> binder的使用
- *  Activity在bind Services之后，会拿到Servcies
+ *  Activity在bind Services之后，会拿到Service
  *  不跨进程 onBind方法:
  *  public class MyBinder extends Binder {
  *      MyService getService() {
@@ -30,7 +31,7 @@ import java.util.concurrent.CountDownLatch;
  *
  *  跨进程 onBind方法
  *  因为Activity和Service本身不是在一个进程里面，所以无法拿到Service对象直接调用对象本身的方法,而是通过拿到一个IBinder对象，通过IBinder对象对Service执行
- *  首先,Service方法的onBind方法要返回一个实现aidl的IBinder类对象,比如SecurityCenterImp，里面实现了远程调用的方法，注意。比如ISecurityCenter只是一个接口，如果Service返回的额是ISecurityCenter的实现类的话，
+ *  首先,Service方法的onBind方法要返回一个实现aidl的IBinder类对象,比如SecurityCenterImp，里面实现了远程调用的方法，注意。比如ISecurityCenter只是一个接口，如果Service返回的是ISecurityCenter的实现类的话，
  *  那么其实就是实现了这个接口的方法而已，那单纯的实现接口对跨进程没有任何用处，就算Activity拿到了这个接口实例，实现起来还是在同个进程里面，aidl文件会为生成的ISecurityCenter接口编写一个Stub类，这是一个
  *  抽象类，它里面有对跨进程的处理，所以Service中返回的IBinder对象要是ISecurityCenter.Stub的子类的实例
  *
@@ -48,7 +49,8 @@ import java.util.concurrent.CountDownLatch;
  *  mRemote = remote;
  * }
  * 那么Proxy持有Stub的引用,这也是当然的，不然怎么在encrypt方法里面调到Stub里面的encrypt方法
- * @Override public java.lang.String encrypt(java.lang.String content) throws android.os.RemoteException
+ * @Override public java.lang.String encrypt(java.lang.String content) throws android.os.RemoteException * transact方法向远方Binder对象发出调用,Binder.onTransact()方法调用完成后才返回
+
  *   {
  *   android.os.Parcel _data = android.os.Parcel.obtain();
  *   android.os.Parcel _reply = android.os.Parcel.obtain();
@@ -67,7 +69,6 @@ import java.util.concurrent.CountDownLatch;
  * return _result;
  * }
  * mRemote 本身是一个Binder类，调用它的 transact方法，_data 代表传入数据，_reply代表返回数据
- * transact方法向远方Binder对象发出调用,Binder.onTransact()方法调用完成后才返回
  * 通过transact()发送的数据是Parcel，Parcel是一种一般的缓冲区，除了有数据外还带有一些描述它内容的元数据
  *  read http://blog.csdn.net/sergeycao/article/details/52585411
  * </p>
@@ -75,7 +76,7 @@ import java.util.concurrent.CountDownLatch;
  *
  * <p>IBinder管理类，返回多个类型的IBinder,DeathRecipient实现进程间的相互监听
  * </p>
- * @author Administrator
+ * @author scauzx
  * @date 2018/3/9
  */
 
