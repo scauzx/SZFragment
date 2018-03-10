@@ -14,8 +14,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * </p>
- * RemoteCallBackList：是系统专门提供的用于删除跨进程listener的接口。它的工作原理其实很简单：
+ * <p> RemoteCallBackList：是系统专门提供的用于删除跨进程listener的接口。它的工作原理其实很简单：
  * 在它的内部有一个Map结构专门用来保存所有AIDL回调ArrayMap<IBinder, Callback> mCallback = new ArrayMap<IBinder, Callback>();,
  * 当客户端注册listener时，会把listener的信息注册到mCallBack中,其中key和value通过下面方式获得：
  * IBinder key = listener.asBinder();Callback value = new Callback(listener, cookie)。
@@ -27,21 +26,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 当客户端解注册时，我们只要遍历所有的listener，找出那个和解注册listener具有相同Binder对象服务器listener并把他删除掉即可，
  * 这就是RemoteCallbackList为我们做的事情。
  *
- * </p>
- * aidl关键字说明:
+ * <p> aidl关键字说明:
  * in : 客户端传给服务端的参数，在服务端做修改之后，服务端修改此参数后，客户端打印所传参数，发现没有变化
  * out : 客户端传给服务端参数，服务端收到发现为空，就是服务端接受不到传参，但是在服务端对此参数做修改，客户端打印所传参数，发现值变为服务端改变的值
  * inout : 服务端收到客户端的传值，并且服务端修改值之后，客户端打印所传参数，发现值变为服务端改变的值
  *
- * </p> oneway的使用
+ * <p> oneway的使用
  * 参考 http://45.124.252.208:8090/pages/viewpage.action?pageId=2103670
  * 没有使用oneway会阻碍当前线程
  * 1.使用oneway的远程调用由于不阻塞调用者的线程，所以会有更好的调用性能，当被调用者执行的任务越繁重时，oneway的性能优势越大
  * 2.当远程调用需要return返回值的时候，不能使用oneway
  * 3 oneway的不阻塞特性，会造成代码执行在时序上的变化，使用时要考虑清楚会不会因此引入新的问题
- *  4.oneway在不跨进程的时候，没有意义
+ * 4.oneway在不跨进程的时候，没有意义
  *
- * </p>
+ * <p>
  * copy from https://github.com/singwhatiwanna/android-art-res/blob/master/Chapter_2/src/com/ryg/chapter_2/aidl/BookManagerService.java
  * @author scauzx
  */
